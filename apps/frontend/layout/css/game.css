@@ -1,8 +1,38 @@
+/* Color Palette 
+    * Main Colors:
+        - BackGround Space Color - #1d1135;
+        - foreGround Space Color - #0c164f
+    * Constrast Colors:
+        - #ba1e68;
+        - #5643fd;
+        - #7649fe;
+        - #fcfbfe;
+*/
+
 #screen {
-    border: solid 10px #ccc;
+    border: solid 10px #fff;
+    background-image: linear-gradient(
+        #081448,
+        #282157,
+        #1a2c80,
+        #4a478a,
+        #da8a8b
+    );
     image-rendering: pixelated;
     image-rendering: crisp-edges;
     image-rendering: -moz-crisp-edges;
+    width: 90%;
+    height: 95%;
+}
+.container-game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
+    background-image: linear-gradient(
+        99.9deg,
+        rgba(27, 24, 31, 1) 21.2%,
+        rgba(50, 4, 89, 1) 84.8%
+    );
 }

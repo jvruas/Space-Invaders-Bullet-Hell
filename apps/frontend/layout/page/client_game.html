@@ -9,7 +9,9 @@
         <title>Remake Space Invaders</title>
     </head>
     <body>
-        <canvas id="screen" width="20" height="10"></canvas>
+        <div class="container-game">
+            <canvas id="screen" width="34" height="17"></canvas>
+        </div>
     </body>
 </html>
 <script>
@@ -25,19 +27,27 @@
     const game = {
         players: {
             player1: {
-                x: 1,
-                y: 1,
+                x: 16,
+                y: 15,
             },
+        },
+        playerBullet: {
+            x: 0,
+            y: 0,
         },
         aliens: {
             alien1: {
-                x: 5,
-                y: 5,
-            },
-            alien2: {
-                x: 3,
+                x: 10,
                 y: 3,
             },
+            alien2: {
+                x: 13,
+                y: 3,
+            },
+        },
+        AlienBullet: {
+            x: 0,
+            y: 0,
         },
     };
 
@@ -46,16 +56,16 @@
     function render_screen() {
         for (playerId in game.players) {
             const player = game.players[playerId];
-            context.fillStyle = "black";
+            context.fillStyle = "#42e9f4";
             context.fillRect(player.x, player.y, 1, 1);
         }
         for (alienId in game.aliens) {
             const alien = game.aliens[alienId];
-            context.fillStyle = "green";
+            context.fillStyle = "#62de6d";
             context.fillRect(alien.x, alien.y, 1, 1);
         }
     }
 
     context.fillStyle = color;
-    context.fillRect(positionX, positionY, width, height);
+    // context.fillRect(positionX, positionY, width, height);
 </script>
