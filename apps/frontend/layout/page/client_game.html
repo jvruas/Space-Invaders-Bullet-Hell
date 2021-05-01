@@ -17,55 +17,104 @@
 <script>
     const screen = document.getElementById("screen");
     const context = screen.getContext("2d");
+    const currentPlayerId = "player1";
 
-    const color = "black";
-    const positionX = 0;
-    const positionY = 0;
-    const width = 1;
-    const height = 1;
+    // Public Methods of Factories
+    const game = create_game();
+    const keyboard_listener = create_keyboard_listener();
 
-    const game = {
-        players: {
-            player1: {
-                x: 16,
-                y: 15,
+    // Factory 1
+    function create_game(command) {
+        const state = {
+            players: {
+                player1: {
+                    x: 16,
+                    y: 16,
+                },
             },
-        },
-        playerBullet: {
-            x: 0,
-            y: 0,
-        },
-        aliens: {
-            alien1: {
-                x: 10,
-                y: 3,
+            aliens: {
+                alien1: {
+                    x: 10,
+                    y: 3,
+                },
+                alien2: {
+                    x: 13,
+                    y: 3,
+                },
             },
-            alien2: {
-                x: 13,
-                y: 3,
+            playerBullet: {
+                x: 0,
+                y: 0,
             },
-        },
-        AlienBullet: {
-            x: 0,
-            y: 0,
-        },
-    };
+            AlienBullet: {
+                x: 0,
+                y: 0,
+            },
+        };
+
+        function move_player(command) {
+            console.log(
+                `Moving ${command.playerId} with ${command.keyPressed}`
+            );
+            const keyPressed = command.keyPressed;
+            const player = state.players[command.playerId];
+
+            if (keyPressed === "ArrowUp" && player.y - 1 >= 0) {
+                --player.y;
+                return;
+            }
+            if (keyPressed === "ArrowDown" && player.y + 1 < 17) {
+                ++player.y;
+                return;
+            }
+            if (keyPressed === "ArrowLeft" && player.x - 1 >= 0) {
+                --player.x;
+                return;
+            }
+            if (keyPressed === "ArrowRight" && player.x + 1 < screen.width) {
+                ++player.x;
+                return;
+            }
+        }
+        return {
+            move_player,
+            state,
+        };
+    }
+    // TODO: Implementar os Objetos dos Projeteis dos Aliens e Players
 
     render_screen();
 
     function render_screen() {
-        for (playerId in game.players) {
-            const player = game.players[playerId];
+        context.clearRect(0, 0, screen.width, screen.height);
+
+        for (const playerId in game.state.players) {
+            const player = game.state.players[playerId];
             context.fillStyle = "#42e9f4";
             context.fillRect(player.x, player.y, 1, 1);
         }
-        for (alienId in game.aliens) {
-            const alien = game.aliens[alienId];
+        for (const alienId in game.state.aliens) {
+            const alien = game.state.aliens[alienId];
             context.fillStyle = "#62de6d";
             context.fillRect(alien.x, alien.y, 1, 1);
         }
+        requestAnimationFrame(render_screen);
     }
 
-    context.fillStyle = color;
-    // context.fillRect(positionX, positionY, width, height);
+    // Input Layer
+
+    function create_keyboard_listener() {
+        document.addEventListener("keydown", input_key_down);
+
+        function input_key_down(event) {
+            const keyPressed = event.key;
+
+            const command = {
+                playerId: "player1",
+                keyPressed,
+            };
+
+            game.move_player(command);
+        }
+    }
 </script>

@@ -11,6 +11,11 @@
 
 #screen {
     border: solid 10px #fff;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;
+    width: 90%;
+    height: 95%;
     background-image: linear-gradient(
         #081448,
         #282157,
@@ -18,11 +23,6 @@
         #4a478a,
         #da8a8b
     );
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
-    image-rendering: -moz-crisp-edges;
-    width: 90%;
-    height: 95%;
 }
 .container-game {
     display: flex;
