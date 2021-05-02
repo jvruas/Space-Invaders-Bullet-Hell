@@ -15,16 +15,25 @@
     </body>
 </html>
 <script>
+    // Canvas Specs
     const screen = document.getElementById("screen");
     const context = screen.getContext("2d");
     const currentPlayerId = "player1";
 
-    // Public Methods of Factories
+    // Public Methods
     const game = create_game();
     const keyboard_listener = create_keyboard_listener();
+    // const network = create_network();          --- Simulação de uma camada de servidor
+
+    // Integração da Camada Input com a Camada de Business Rules apenas no RUN-TIME do codigo
+    keyboard_listener.subscribe(game.move_player);
+    // keyboard_listener.subscribe(network.update);   -- Simulação de uma camada de servidor
+
+    // Business Rules
 
     // Factory 1
     function create_game(command) {
+        // TODO: Implementar os Objetos dos Projeteis dos Aliens e Players
         const state = {
             players: {
                 player1: {
@@ -81,13 +90,54 @@
             state,
         };
     }
-    // TODO: Implementar os Objetos dos Projeteis dos Aliens e Players
+
+    // Input Layer
+
+    // Subject and Factory 2
+    function create_keyboard_listener() {
+        const state = {
+            observers: [],
+        };
+
+        // Registrando um Observer em um Subject
+        function subscribe(observerFunction) {
+            state.observers.push(observerFunction);
+        }
+
+        // Notificando os Observers
+        function notifyAll(command) {
+            console.log(`Notifying ${state.observers.length} observers`);
+
+            // "for of" é muito utilizado para Percorrer os indices de um Array
+            for (const observerFunction of state.observers) {
+                observerFunction(command);
+            }
+        }
+
+        document.addEventListener("keydown", input_key_down);
+
+        function input_key_down(event) {
+            const keyPressed = event.key;
+
+            //Most Important Object of System
+            const command = {
+                playerId: "player1",
+                keyPressed,
+            };
+
+            notifyAll(command);
+        }
+        return {
+            subscribe,
+        };
+    }
 
     render_screen();
 
     function render_screen() {
         context.clearRect(0, 0, screen.width, screen.height);
 
+        // "for in" é muito utilizado para Percorrer Objetos Propriedades de objetos
         for (const playerId in game.state.players) {
             const player = game.state.players[playerId];
             context.fillStyle = "#42e9f4";
@@ -99,22 +149,5 @@
             context.fillRect(alien.x, alien.y, 1, 1);
         }
         requestAnimationFrame(render_screen);
-    }
-
-    // Input Layer
-
-    function create_keyboard_listener() {
-        document.addEventListener("keydown", input_key_down);
-
-        function input_key_down(event) {
-            const keyPressed = event.key;
-
-            const command = {
-                playerId: "player1",
-                keyPressed,
-            };
-
-            game.move_player(command);
-        }
     }
 </script>
