@@ -33,39 +33,60 @@
 
     // Factory 1
     function create_game(command) {
-        // TODO: Implementar os Objetos dos Projeteis dos Aliens e Players
+        // TODO: Implementar os Objetos: playerBullet, alienBullet e meteorites;
         const state = {
-            players: {
-                player1: {
-                    x: 16,
-                    y: 16,
-                },
-            },
-            aliens: {
-                alien1: {
-                    x: 10,
-                    y: 3,
-                },
-                alien2: {
-                    x: 13,
-                    y: 3,
-                },
-            },
+            players: {},
+            aliens: {},
             playerBullet: {
                 x: 0,
                 y: 0,
             },
-            AlienBullet: {
+            alienBullet: {
+                x: 0,
+                y: 0,
+            },
+            meteorites: {
                 x: 0,
                 y: 0,
             },
         };
 
-        function move_player(command) {
-            console.log(
-                `game.movePlayer() -> ${command.playerId} with ${command.keyPressed}`
-            );
+        function add_player(command) {
+            const playerId = command.playerId;
+            const playerX = command.playerX;
+            const playerY = command.playerY;
 
+            state.players[playerId] = {
+                x: playerX,
+                y: playerY,
+            };
+        }
+
+        function remove_player(command) {
+            const playerId = command.playerId;
+
+            // "delete" serve para deletar uma propriedade e suas referencias dentro de um objeto
+            delete state.players[playerId];
+        }
+
+        function add_alien(command) {
+            const alienId = command.alienId;
+            const alienX = command.alienX;
+            const alienY = command.alienY;
+
+            state.aliens[alienId] = {
+                x: alienX,
+                y: alienY,
+            };
+        }
+
+        function remove_alien(command) {
+            const alienId = command.alienId;
+
+            delete state.aliens[alienId];
+        }
+
+        function move_player(command) {
             const acceptedMoves = {
                 ArrowUp(player) {
                     console.log("Player to Up");
@@ -76,7 +97,7 @@
                 },
                 ArrowDown(player) {
                     console.log("Player to Down");
-                    if (player.y + 1 < 17) {
+                    if (player.y + 1 < screen.height) {
                         ++player.y;
                         return;
                     }
@@ -97,21 +118,51 @@
                 },
             };
             const keyPressed = command.keyPressed;
-            const player = state.players[command.playerId];
+            const playerId = command.playerId;
+            const player = state.players[playerId];
             const moveFunction = acceptedMoves[keyPressed];
 
-            if (moveFunction != undefined) {
+            if (player && moveFunction) {
                 moveFunction(player);
+                confirm_for_alien_collision(playerId);
             }
-            return;
-            // FIXME:
         }
+
+        function confirm_for_alien_collision(playerId) {
+            const player = state.players[playerId];
+            for (const alienId in state.aliens) {
+                console.log(
+                    `Checking collision between ${playerId} and ${alienId}`
+                );
+
+                const alien = state.aliens[alienId];
+
+                if (player.x == alien.x && player.y == alien.y) {
+                    console.log(
+                        `Collision occurred between ${playerId} and ${alienId}`
+                    );
+                    remove_alien({ alienId: alienId });
+                }
+            }
+        }
+
         return {
-            move_player,
             state,
+            add_player,
+            remove_player,
+            move_player,
+            add_alien,
+            remove_alien,
         };
     }
 
+    // FIXME:
+    game.add_player({ playerId: "player1", playerX: 0, playerY: 0 });
+    game.add_player({ playerId: "player2", playerX: 2, playerY: 0 });
+    game.add_player({ playerId: "player3", playerX: 6, playerY: 0 });
+    game.add_alien({ alienId: "alien2", alienX: 33, alienY: 16 });
+    game.add_alien({ alienId: "alien3", alienX: 31, alienY: 16 });
+    game.add_alien({ alienId: "alien4", alienX: 29, alienY: 16 });
     // Input Layer
 
     // Subject and Factory 2
