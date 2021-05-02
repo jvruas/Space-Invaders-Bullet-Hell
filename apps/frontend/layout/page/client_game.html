@@ -22,11 +22,11 @@
 
     // Public Methods
     const game = create_game();
-    const keyboard_listener = create_keyboard_listener();
+    const keyboardListener = create_keyboard_listener();
     // const network = create_network();          --- Simulação de uma camada de servidor
 
     // Integração da Camada Input com a Camada de Business Rules apenas no RUN-TIME do codigo
-    keyboard_listener.subscribe(game.move_player);
+    keyboardListener.subscribe(game.move_player);
     // keyboard_listener.subscribe(network.update);   -- Simulação de uma camada de servidor
 
     // Business Rules
@@ -63,27 +63,48 @@
 
         function move_player(command) {
             console.log(
-                `Moving ${command.playerId} with ${command.keyPressed}`
+                `game.movePlayer() -> ${command.playerId} with ${command.keyPressed}`
             );
+
+            const acceptedMoves = {
+                ArrowUp(player) {
+                    console.log("Player to Up");
+                    if (player.y - 1 >= 0) {
+                        --player.y;
+                        return;
+                    }
+                },
+                ArrowDown(player) {
+                    console.log("Player to Down");
+                    if (player.y + 1 < 17) {
+                        ++player.y;
+                        return;
+                    }
+                },
+                ArrowLeft(player) {
+                    console.log("Player to Left");
+                    if (player.x - 1 >= 0) {
+                        --player.x;
+                        return;
+                    }
+                },
+                ArrowRight(player) {
+                    console.log("Player to Right");
+                    if (player.x + 1 < screen.width) {
+                        ++player.x;
+                        return;
+                    }
+                },
+            };
             const keyPressed = command.keyPressed;
             const player = state.players[command.playerId];
+            const moveFunction = acceptedMoves[keyPressed];
 
-            if (keyPressed === "ArrowUp" && player.y - 1 >= 0) {
-                --player.y;
-                return;
+            if (moveFunction != undefined) {
+                moveFunction(player);
             }
-            if (keyPressed === "ArrowDown" && player.y + 1 < 17) {
-                ++player.y;
-                return;
-            }
-            if (keyPressed === "ArrowLeft" && player.x - 1 >= 0) {
-                --player.x;
-                return;
-            }
-            if (keyPressed === "ArrowRight" && player.x + 1 < screen.width) {
-                ++player.x;
-                return;
-            }
+            return;
+            // FIXME:
         }
         return {
             move_player,
@@ -106,7 +127,9 @@
 
         // Notificando os Observers
         function notifyAll(command) {
-            console.log(`Notifying ${state.observers.length} observers`);
+            console.log(
+                `KeyboardListener -> Notifying ${state.observers.length} observers`
+            );
 
             // "for of" é muito utilizado para Percorrer os indices de um Array
             for (const observerFunction of state.observers) {
