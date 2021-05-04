@@ -4,7 +4,6 @@
 </p>
 <p align="center">
  <a href="#-about">About</a> •
- <a href="#-layout">Funcionalidades</a> •
  <a href="#-layout">Layout</a> • 
  <a href="#-employed-technologies">Employed Technologies</a> • 
 </p>
