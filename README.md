@@ -1,4 +1,4 @@
-# 👾 Space-Invaders-Bullet-Hell
+# Space-Invaders-Bullet-Hell
 
 <p align="center" style="display: flex; align-items: flex-start;">
 <a href="https://github.com/jvruas">
@@ -10,11 +10,12 @@
  <a href="#-layout">Layout</a> • 
  <a href="#-employed-technologies">Employed Technologies</a> • 
 </p>
+
 ---
 
 ### About
 
-<p>Space Invaders Bullet Hell - This is a Study Project with the objective of creating a game based on the Retro Game “Space Invaders” for the browser</p>
+👾 Space Invaders Bullet Hell - This is a Study Project with the objective of creating a game based on the Retro Game “Space Invaders” for the browser</p>
 
 ---
 
@@ -41,5 +42,3 @@ The following tools were used in the construction of the project:
 -   **[JS](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)**
 
 ---
-
-## 🦸 Author
