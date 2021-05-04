@@ -1,5 +1,3 @@
-# Space-Invaders-Bullet-Hell
-
 <p align="center" style="display: flex; align-items: flex-start;">
 <a href="https://github.com/jvruas">
 <img alt="Stargazers" src="https://img.shields.io/github/stars/AntonioGally/PI_1_Semestre?style=social">
@@ -10,6 +8,10 @@
  <a href="#-layout">Layout</a> • 
  <a href="#-employed-technologies">Employed Technologies</a> • 
 </p>
+
+---
+
+# Space-Invaders-Bullet-Hell
 
 ---
 
