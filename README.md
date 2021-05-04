@@ -20,8 +20,6 @@
 
 ## 🎨 Layout
 
----
-
 ### Prints
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center; flex-direction:column;">
