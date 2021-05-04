@@ -12,8 +12,6 @@
 
 # Space-Invaders-Bullet-Hell
 
----
-
 ### About
 
 👾 Space Invaders Bullet Hell - This is a Study Project with the objective of creating a game based on the Retro Game “Space Invaders” for the browser</p>
