@@ -1,15 +1,24 @@
-# Space-Invaders-Bullet-Hell
+# 👾 Space-Invaders-Bullet-Hell
 
-<p align="center">
+<p align="center" style="display: flex; align-items: flex-start;">
 <a href="https://github.com/jvruas">
 <img alt="Stargazers" src="https://img.shields.io/github/stars/AntonioGally/PI_1_Semestre?style=social">
 </p>
-
+<p align="center">
+ <a href="#-about">About</a> •
+ <a href="#-layout">Funcionalidades</a> •
+ <a href="#-layout">Layout</a> • 
+ <a href="#-employed-technologies">Employed Technologies</a> • 
+</p>
 ---
 
 ### About
 
-👾 Space Invaders Bullet Hell - This is a Study Project with the objective of creating a game based on the Retro Game “Space Invaders” for the browser
+<p>Space Invaders Bullet Hell - This is a Study Project with the objective of creating a game based on the Retro Game “Space Invaders” for the browser</p>
+
+---
+
+## 🎨 Layout
 
 ---
 
@@ -21,12 +30,16 @@
 
 ---
 
-## Employed Technologies
+## 🛠 Employed Technologies
 
 The following tools were used in the construction of the project:
 
-#### **Website**
+#### **Game and Website**
 
 -   **[HTML](https://www.w3schools.com/html/)**
 -   **[CSS](https://www.w3schools.com/css/)**
 -   **[JS](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)**
+
+---
+
+## 🦸 Author
