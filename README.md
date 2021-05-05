@@ -23,7 +23,7 @@
 ### Prints
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center; flex-direction:column;">
-  <img alt="first_print" title="#print" src="./web/assets/images/prints/cover_image.png" width="300px">
+  <img alt="first_print" title="#print" src="./public/assets/images/prints/cover_image.png" width="300px">
 </p>
 
 ---
