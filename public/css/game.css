@@ -10,7 +10,7 @@
 */
 
 #screen {
-    border: solid 10px #fff;
+    border: solid 1px #fff;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
     image-rendering: -moz-crisp-edges;
