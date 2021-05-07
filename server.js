@@ -1,5 +1,5 @@
 //Limitando a Quantidade de Erros dentro do arquivo Principal da Aplicação
-"user strict";
+"use strict";
 
 // Imports
 const express = require("express"); // Importando a lib do express para o arquivo possibilitando utilizar seus metodos
