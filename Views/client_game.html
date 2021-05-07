@@ -4,8 +4,8 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../../../public/css/default_reset.css" />
-        <link rel="stylesheet" href="../../../public/css/game.css" />
+        <link rel="stylesheet" href="../public/css/default_reset.css" />
+        <link rel="stylesheet" href="../public/css/game.css" />
         <title>Remake Space Invaders</title>
     </head>
     <body>
@@ -26,7 +26,7 @@
     // const network = create_network();          --- Simulação de uma camada de servidor
 
     // Integração da Camada Input com a Camada de Business Rules apenas no RUN-TIME do codigo
-    keyboardListener.subscribe(game.move_player);
+    keyboardListener.subscribe(game.player_accepted_moves);
     // keyboard_listener.subscribe(network.update);   -- Simulação de uma camada de servidor
 
     // Business Rules
@@ -36,19 +36,10 @@
         // TODO: Implementar os Objetos: playerBullet, alienBullet e meteorites;
         const state = {
             players: {},
+            playerBullets: {},
             aliens: {},
-            playerBullet: {
-                x: 0,
-                y: 0,
-            },
-            alienBullet: {
-                x: 0,
-                y: 0,
-            },
-            meteorites: {
-                x: 0,
-                y: 0,
-            },
+            alienBullets: {},
+            meteorites: {},
         };
 
         function add_player(command) {
@@ -86,83 +77,168 @@
             delete state.aliens[alienId];
         }
 
-        function move_player(command) {
+        function add_player_bullet(command) {
+            const playerBulletId = command.playerBulletId;
+            const playerBulletX = command.playerBulletX;
+            const playerBulletY = command.playerBulletY;
+
+            state.playerBullets[playerBulletId] = {
+                x: playerBulletX,
+                y: playerBulletY,
+            };
+        }
+
+        function remove_player_bullet(command) {
+            const playerBulletId = command.playerBulletId;
+
+            delete state.playerBullets[playerBulletId];
+        }
+
+        function add_alien_bullet(command) {
+            const alienBulletId = command.alienBulletId;
+            const alienBulletX = command.alienBulletX;
+            const alienBulletY = command.alienBulletY;
+
+            state.alienBullets[alienBulletId] = {
+                x: alienBulletX,
+                y: alienBulletY,
+            };
+        }
+
+        function remove_alien_bullet(command) {
+            const alienBulletId = command.alienBulletId;
+
+            delete state.alienBullets[alienBulletId];
+        }
+
+        function add_meteorite(command) {
+            const meteoriteId = command.meteoriteId;
+            const meteoriteX = command.meteoriteX;
+            const meteoriteY = command.meteoriteY;
+
+            state.meteorites[meteoriteId] = {
+                x: meteoriteX,
+                y: meteoriteY,
+            };
+        }
+
+        function remove_meteorite(command) {
+            const meteoriteId = command.meteoriteId;
+
+            delete state.meteorites[meteoriteId];
+        }
+
+        function player_bullet_state() {
+            for (const playerBulletId in state.playerBullets) {
+                const playerBullet = state.playerBullets[playerBulletId];
+                console.log("> Atacando");
+                if (playerBullet.y <= 0) {
+                    remove_player_bullet({ playerBulletId: playerBulletId });
+                } else {
+                    setInterval(() => {
+                        // FIXME:
+                        --playerBullet.y;
+                    }, 150);
+                }
+                for (const alienId in state.aliens) {
+                    const alien = state.aliens[alienId];
+                    if (
+                        alien.y === playerBullet.y &&
+                        alien.x === playerBullet.x
+                    ) {
+                        console.log("Alien Foi Morto em Combate");
+                        remove_player_bullet({
+                            playerBulletId: playerBulletId,
+                        });
+                        remove_alien({ alienId: alienId });
+                    }
+                }
+            }
+        }
+
+        function player_accepted_moves(command) {
             const acceptedMoves = {
                 ArrowUp(player) {
                     console.log("Player to Up");
-                    if (player.y - 1 >= 0) {
+
+                    if (player.y - 1 >= 14) {
                         --player.y;
                         return;
                     }
                 },
                 ArrowDown(player) {
                     console.log("Player to Down");
+
                     if (player.y + 1 < screen.height) {
                         ++player.y;
                         return;
                     }
                 },
-                ArrowLeft(player) {
+                ArrowLeft: function (player) {
                     console.log("Player to Left");
+
                     if (player.x - 1 >= 0) {
                         --player.x;
                         return;
                     }
                 },
-                ArrowRight(player) {
+                ArrowRight: (player) => {
                     console.log("Player to Right");
+
                     if (player.x + 1 < screen.width) {
                         ++player.x;
                         return;
                     }
                 },
+                z(player) {
+                    console.log("Player Atack");
+
+                    const generatedBulletId = (Math.random() * 2).toFixed(3);
+                    let playerY = player.y;
+                    const spawnPlayerBullet = --playerY;
+
+                    add_player_bullet({
+                        playerBulletId: generatedBulletId,
+                        playerBulletX: player.x,
+                        playerBulletY: spawnPlayerBullet,
+                    });
+                    player_bullet_state();
+                },
             };
-            const keyPressed = command.keyPressed;
             const playerId = command.playerId;
+            const keyPressed = command.keyPressed;
             const player = state.players[playerId];
             const moveFunction = acceptedMoves[keyPressed];
 
             if (player && moveFunction) {
                 moveFunction(player);
-                confirm_for_alien_collision(playerId);
-            }
-        }
-
-        function confirm_for_alien_collision(playerId) {
-            const player = state.players[playerId];
-            for (const alienId in state.aliens) {
-                console.log(
-                    `Checking collision between ${playerId} and ${alienId}`
-                );
-
-                const alien = state.aliens[alienId];
-
-                if (player.x == alien.x && player.y == alien.y) {
-                    console.log(
-                        `Collision occurred between ${playerId} and ${alienId}`
-                    );
-                    remove_alien({ alienId: alienId });
-                }
             }
         }
 
         return {
+            player_bullet_state,
             state,
             add_player,
-            remove_player,
-            move_player,
             add_alien,
+            add_player_bullet,
+            add_alien_bullet,
+            add_meteorite,
+            remove_player,
             remove_alien,
+            remove_player_bullet,
+            remove_alien_bullet,
+            remove_meteorite,
+            player_accepted_moves,
         };
     }
 
     // FIXME:
-    game.add_player({ playerId: "player1", playerX: 0, playerY: 0 });
+    game.add_player({ playerId: "player1", playerX: 8, playerY: 16 });
     game.add_player({ playerId: "player2", playerX: 2, playerY: 0 });
     game.add_player({ playerId: "player3", playerX: 6, playerY: 0 });
-    game.add_alien({ alienId: "alien2", alienX: 33, alienY: 16 });
-    game.add_alien({ alienId: "alien3", alienX: 31, alienY: 16 });
-    game.add_alien({ alienId: "alien4", alienX: 29, alienY: 16 });
+    game.add_alien({ alienId: "alien2", alienX: 33, alienY: 15 });
+    game.add_alien({ alienId: "alien3", alienX: 31, alienY: 15 });
+    game.add_alien({ alienId: "alien4", alienX: 29, alienY: 15 });
     // Input Layer
 
     // Subject and Factory 2
@@ -188,7 +264,7 @@
             }
         }
 
-        document.addEventListener("keydown", input_key_down);
+        document.addEventListener("keyup", input_key_down);
 
         function input_key_down(event) {
             const keyPressed = event.key;
@@ -211,7 +287,7 @@
     function render_screen() {
         context.clearRect(0, 0, screen.width, screen.height);
 
-        // "for in" é muito utilizado para Percorrer Objetos Propriedades de objetos
+        // "for in" é muito utilizado para Percorrer Propriedades/Indices de objetos
         for (const playerId in game.state.players) {
             const player = game.state.players[playerId];
             context.fillStyle = "#42e9f4";
@@ -222,6 +298,22 @@
             context.fillStyle = "#62de6d";
             context.fillRect(alien.x, alien.y, 1, 1);
         }
+        for (const playerBulletId in game.state.playerBullets) {
+            const playerBullet = game.state.playerBullets[playerBulletId];
+            context.fillStyle = "#5353f1";
+            context.fillRect(playerBullet.x, playerBullet.y, 1, 1);
+        }
+        for (const alienBulletId in game.state.alienBullets) {
+            const alienBullet = game.state.alienBullets[alienBulletId];
+            context.fillStyle = "#ebdf64";
+            context.fillRect(alienBullet.x, alienBullet.y, 1, 1);
+        }
+        for (const meteoriteId in game.state.meteorites) {
+            const meteorite = game.state.meteorites[meteoriteId];
+            context.fillStyle = "#f83b3a";
+            context.fillRect(meteorite.x, meteorite.y, 1, 1);
+        }
+
         requestAnimationFrame(render_screen);
     }
 </script>
