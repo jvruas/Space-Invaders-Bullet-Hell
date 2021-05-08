@@ -162,16 +162,21 @@
             for (const alienBulletId in state.alienBullets) {
                 const alienBullet = state.alienBullets[alienBulletId];
 
-                console.log("Conferindo Colisão");
+                if (player) {
+                    console.log("Conferindo Colisão");
 
-                if (alienBullet.y >= screen.height) {
-                    remove_alien_bullet({ alienBulletId: alienBulletId });
+                    if (alienBullet.y >= screen.height) {
+                        remove_alien_bullet({ alienBulletId: alienBulletId });
+                    }
+                    if (
+                        player.x === alienBullet.x &&
+                        player.y === alienBullet.y
+                    ) {
+                        remove_player({ playerId: playerId });
+                        remove_alien_bullet({ alienBulletId: alienBulletId });
+                    }
+                    ++alienBullet.y;
                 }
-                if (player.x === alienBullet.x && player.y === alienBullet.y) {
-                    remove_player({ playerId: playerId });
-                    remove_alien_bullet({ alienBulletId: alienBulletId });
-                }
-                ++alienBullet.y;
             }
         }
 
@@ -183,21 +188,23 @@
             for (const alienId in state.aliens) {
                 const alien = state.aliens[alienId];
 
-                if (
-                    player.x === alien.x - 3 ||
-                    player.x === alien.x + 3 ||
-                    player.x === alien.x
-                ) {
-                    console.log("Entrou no If");
+                if (player) {
+                    if (
+                        player.x === alien.x - 3 ||
+                        player.x === alien.x + 3 ||
+                        player.x === alien.x
+                    ) {
+                        console.log("Entrou no If");
 
-                    const generatedAlienBulletId = (Math.random() * 2).toFixed(
-                        3
-                    );
-                    add_alien_bullet({
-                        alienBulletId: generatedAlienBulletId,
-                        alienBulletX: alien.x,
-                        alienBulletY: 1 + alien.y,
-                    });
+                        const generatedAlienBulletId = (
+                            Math.random() * 2
+                        ).toFixed(3);
+                        add_alien_bullet({
+                            alienBulletId: generatedAlienBulletId,
+                            alienBulletX: alien.x,
+                            alienBulletY: 1 + alien.y,
+                        });
+                    }
                 }
             }
         }
