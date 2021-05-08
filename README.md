@@ -24,7 +24,7 @@
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center; flex-direction:column;">
   <img alt="first_print" title="#print" src="./public/assets/images/prints/cover_image.png" width="300px">
-  <img alt="second_print" title="#print" src="./public/assets/images/prints/cover_image2.png">
+  <img alt="second_print" title="#print" src="./public/assets/images/prints/cover_image2.png" width="300px">
 </p>
 
 ---
