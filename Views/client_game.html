@@ -112,68 +112,62 @@
             delete state.alienBullets[alienBulletId];
         }
 
-        function add_meteorite(command) {
-            const meteoriteId = command.meteoriteId;
-            const meteoriteX = command.meteoriteX;
-            const meteoriteY = command.meteoriteY;
-
-            state.meteorites[meteoriteId] = {
-                x: meteoriteX,
-                y: meteoriteY,
-            };
-        }
-
-        function remove_meteorite(command) {
-            const meteoriteId = command.meteoriteId;
-
-            delete state.meteorites[meteoriteId];
-        }
-
         function player_bullet_state() {
             for (const playerBulletId in state.playerBullets) {
                 const playerBullet = state.playerBullets[playerBulletId];
 
-                for (const alienId in state.aliens) {
-                    const alien = state.aliens[alienId];
+                if (playerBullet) {
+                    for (const alienId in state.aliens) {
+                        const alien = state.aliens[alienId];
 
-                    if (playerBullet.y <= 0) {
-                        remove_player_bullet({
-                            playerBulletId: playerBulletId,
-                        });
-                    } else if (
-                        playerBullet.x === alien.x &&
-                        playerBullet.y === alien.y
-                    ) {
-                        console.log("> Bala Acertou o Alien");
+                        if (alien) {
+                            if (playerBullet.y <= 0) {
+                                remove_player_bullet({
+                                    playerBulletId: playerBulletId,
+                                });
+                            } else if (
+                                playerBullet.x === alien.x &&
+                                playerBullet.y === alien.y
+                            ) {
+                                console.log("> Bala Acertou o Alien");
 
-                        remove_alien({ alienId: alienId });
-                        remove_player_bullet({
-                            playerBulletId: playerBulletId,
-                        });
+                                remove_alien({ alienId: alienId });
+                                remove_player_bullet({
+                                    playerBulletId: playerBulletId,
+                                });
+                            }
+                        }
                     }
+                    --playerBullet.y;
                 }
-                --playerBullet.y;
             }
         }
 
         function alien_bullet_state(playerId) {
             const player = state.players[playerId];
 
-            for (const alienBulletId in state.alienBullets) {
-                const alienBullet = state.alienBullets[alienBulletId];
+            if (player) {
+                for (const alienBulletId in state.alienBullets) {
+                    const alienBullet = state.alienBullets[alienBulletId];
 
-                if (player) {
-                    console.log("Conferindo Colisão");
+                    if (alienBullet) {
+                        console.log("Conferindo Colisão");
 
-                    if (alienBullet.y >= screen.height) {
-                        remove_alien_bullet({ alienBulletId: alienBulletId });
-                    }
-                    if (
-                        player.x === alienBullet.x &&
-                        player.y === alienBullet.y
-                    ) {
-                        remove_player({ playerId: playerId });
-                        remove_alien_bullet({ alienBulletId: alienBulletId });
+                        if (alienBullet.y >= screen.height) {
+                            remove_alien_bullet({
+                                alienBulletId: alienBulletId,
+                            });
+                        }
+                        if (
+                            player.x === alienBullet.x &&
+                            player.y === alienBullet.y
+                        ) {
+                            game_over(playerId);
+                            // remove_player({ playerId: playerId });
+                            // remove_alien_bullet({
+                            //     alienBulletId: alienBulletId,
+                            // });
+                        }
                     }
                     ++alienBullet.y;
                 }
@@ -183,28 +177,51 @@
         function alien_attack_condition(playerId) {
             const player = state.players[playerId];
 
-            console.log("> Confirm Collision");
+            if (player) {
+                console.log("> Confirm Collision");
 
+                for (const alienId in state.aliens) {
+                    const alien = state.aliens[alienId];
+
+                    if (alien) {
+                        if (
+                            player.x === alien.x - 3 ||
+                            player.x === alien.x + 3 ||
+                            player.x === alien.x
+                        ) {
+                            console.log("Entrou no If");
+
+                            const generatedAlienBulletId = (
+                                Math.random() * 2
+                            ).toFixed(3);
+                            add_alien_bullet({
+                                alienBulletId: generatedAlienBulletId,
+                                alienBulletX: alien.x,
+                                alienBulletY: 1 + alien.y,
+                            });
+                        }
+                    }
+                }
+            }
+        }
+
+        function game_over(playerId) {
+            delete state.players[playerId];
+            delete state.aliens;
+            delete state.playerBullets;
+            delete state.alienBullets;
+        }
+        function move_alien() {
             for (const alienId in state.aliens) {
                 const alien = state.aliens[alienId];
-
-                if (player) {
-                    if (
-                        player.x === alien.x - 3 ||
-                        player.x === alien.x + 3 ||
-                        player.x === alien.x
-                    ) {
-                        console.log("Entrou no If");
-
-                        const generatedAlienBulletId = (
-                            Math.random() * 2
-                        ).toFixed(3);
-                        add_alien_bullet({
-                            alienBulletId: generatedAlienBulletId,
-                            alienBulletX: alien.x,
-                            alienBulletY: 1 + alien.y,
-                        });
-                    }
+                if (++alien.x < screen.width) {
+                    ++alien.x;
+                } else {
+                    alien.x = 1;
+                    ++alien.y;
+                }
+                if (alien.y === 14) {
+                    game_over();
                 }
             }
         }
@@ -215,22 +232,6 @@
             const player = state.players[playerId];
 
             const acceptedMoves = {
-                ArrowUp(player) {
-                    console.log("Player to Up");
-
-                    if (player.y - 1 >= 14) {
-                        --player.y;
-                        return;
-                    }
-                },
-                ArrowDown(player) {
-                    console.log("Player to Down");
-
-                    if (player.y + 1 < screen.height) {
-                        ++player.y;
-                        return;
-                    }
-                },
                 ArrowLeft: function (player) {
                     console.log("Player to Left");
 
@@ -276,6 +277,9 @@
         setInterval(() => {
             alien_attack_condition("player1");
         }, 200);
+        setInterval(() => {
+            move_alien();
+        }, 2000);
 
         return {
             state,
@@ -283,12 +287,10 @@
             add_alien,
             add_player_bullet,
             add_alien_bullet,
-            add_meteorite,
             remove_player,
             remove_alien,
             remove_player_bullet,
             remove_alien_bullet,
-            remove_meteorite,
             player_accepted_moves,
         };
     }
@@ -319,6 +321,55 @@
     game.add_alien({ alienId: "alien16", alienX: 25, alienY: 6 });
     game.add_alien({ alienId: "alien17", alienX: 25, alienY: 4 });
     game.add_alien({ alienId: "alien18", alienX: 25, alienY: 2 });
+
+    game.add_alien({ alienId: "alien19", alienX: 13, alienY: 6 });
+    game.add_alien({ alienId: "alien20", alienX: 13, alienY: 4 });
+    game.add_alien({ alienId: "alien21", alienX: 13, alienY: 2 });
+
+    game.add_alien({ alienId: "alien22", alienX: 11, alienY: 6 });
+    game.add_alien({ alienId: "alien23", alienX: 11, alienY: 4 });
+    game.add_alien({ alienId: "alien24", alienX: 11, alienY: 2 });
+
+    game.add_alien({ alienId: "alien25", alienX: 9, alienY: 6 });
+    game.add_alien({ alienId: "alien26", alienX: 9, alienY: 4 });
+    game.add_alien({ alienId: "alien27", alienX: 9, alienY: 2 });
+
+    game.add_alien({ alienId: "alien28", alienX: 7, alienY: 6 });
+    game.add_alien({ alienId: "alien29", alienX: 7, alienY: 4 });
+    game.add_alien({ alienId: "alien30", alienX: 7, alienY: 2 });
+
+    game.add_alien({ alienId: "alien31", alienX: 5, alienY: 6 });
+    game.add_alien({ alienId: "alien32", alienX: 5, alienY: 4 });
+    game.add_alien({ alienId: "alien33", alienX: 5, alienY: 2 });
+
+    game.add_alien({ alienId: "alien34", alienX: 27, alienY: 6 });
+    game.add_alien({ alienId: "alien35", alienX: 27, alienY: 4 });
+    game.add_alien({ alienId: "alien36", alienX: 27, alienY: 2 });
+
+    game.add_alien({ alienId: "alien37", alienX: 29, alienY: 6 });
+    game.add_alien({ alienId: "alien38", alienX: 29, alienY: 4 });
+    game.add_alien({ alienId: "alien39", alienX: 29, alienY: 2 });
+
+    game.add_alien({ alienId: "alien40", alienX: 3, alienY: 6 });
+    game.add_alien({ alienId: "alien41", alienX: 3, alienY: 4 });
+    game.add_alien({ alienId: "alien42", alienX: 3, alienY: 2 });
+
+    game.add_alien({ alienId: "alien53", alienX: 8, alienY: 0 });
+    game.add_alien({ alienId: "alien54", alienX: 4, alienY: 0 });
+
+    game.add_alien({ alienId: "alien55", alienX: 28, alienY: 0 });
+    game.add_alien({ alienId: "alien56", alienX: 26, alienY: 0 });
+    game.add_alien({ alienId: "alien57", alienX: 24, alienY: 0 });
+    game.add_alien({ alienId: "alien58", alienX: 22, alienY: 0 });
+    game.add_alien({ alienId: "alien59", alienX: 20, alienY: 0 });
+    game.add_alien({ alienId: "alien60", alienX: 18, alienY: 0 });
+    game.add_alien({ alienId: "alien61", alienX: 16, alienY: 0 });
+    game.add_alien({ alienId: "alien62", alienX: 14, alienY: 0 });
+    game.add_alien({ alienId: "alien63", alienX: 12, alienY: 0 });
+    game.add_alien({ alienId: "alien64", alienX: 10, alienY: 0 });
+
+    game.add_alien({ alienId: "alien65", alienX: 6, alienY: 0 });
+
     // Input Layer
 
     // Subject and Factory 2
