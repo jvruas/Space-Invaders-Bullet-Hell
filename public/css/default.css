@@ -1,0 +1,243 @@
+/* Imports */
+
+/* font-family: 'Montserrat', sans-serif; - to texts */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+/* font-family: 'Anton', sans-serif; - to titles */
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Montserrat&display=swap");
+/* !Index - Homepage */
+
+/* *Geral */
+
+.c-general {
+    height: 100vh;
+    width: 100vw;
+}
+
+.c-general__align {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 75%;
+}
+
+/* *Video */
+
+.c-general__align .home__video {
+    position: fixed;
+    z-index: 1;
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .home__video {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .home__video {
+        width: auto;
+        height: 100%;
+    }
+}
+@media (max-width: 767px) {
+    .home__video {
+        display: none;
+    }
+    .c-general {
+        background: url("../assets/images/index_login_register/video-poster.png");
+        background-size: cover;
+    }
+}
+
+/* *Contents Login*/
+
+.c-general__align .home__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    left: 93.3%;
+
+    background-image: linear-gradient(
+        99.9deg,
+        rgba(27, 24, 31, 0.5) 21.2%,
+        rgba(50, 4, 89, 0.4) 84.8%
+    );
+
+    z-index: 2;
+    width: 40%;
+    height: 100%;
+}
+
+.content__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15%;
+    width: 70%;
+    height: 12%;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.content__box .box__title {
+    font-family: "Anton", sans-serif;
+    font-size: 3em;
+    /* font-weight: bold; */
+}
+
+/* Login Form*/
+.content__box2 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 5%;
+    width: 80%;
+    height: 60%;
+    border-radius: 10px;
+    background-color: #fff;
+}
+.box2__form {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 20%;
+}
+.content__box2 h2 {
+    margin-top: 25px;
+    margin-bottom: 5px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.content__box2 input {
+    box-shadow: 10px 5px 5px black;
+    width: 350px;
+    height: 25px;
+}
+
+.box2__form #submit {
+    position: relative;
+    width: 50%;
+    height: 50px;
+    margin-top: 50px;
+    margin-left: 25%;
+
+    background-color: #eee;
+    border-radius: 50px;
+    transition: 0.2s;
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#submit:hover {
+    transition: 0.2s;
+    background-color: #4286f4;
+    color: #eee;
+}
+
+.box2__form .form__redirect-register {
+    position: absolute;
+    margin-top: 32%;
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+}
+
+.form__redirect-register a {
+    text-decoration: none;
+}
+
+/* *Register Contents */
+
+.c-general__align .register__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register__background {
+    background-image: linear-gradient(
+        #081448,
+        #282157,
+        #1a2c80,
+        #4a478a,
+        #da8a8b
+    );
+}
+
+.box3__form-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex-direction: column; */
+}
+
+.form-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    height: 900px;
+    margin-top: 1.5%;
+    border-radius: 10%;
+
+    background-color: rgba(27, 24, 31, 0.8);
+}
+
+.form-register h2 {
+    margin-right: 28%;
+    margin-top: 25px;
+    margin-bottom: 5px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.form-register input {
+    box-shadow: 10px 5px 5px black;
+    width: 350px;
+    height: 25px;
+}
+
+#submit_register {
+    position: relative;
+    width: 50%;
+    height: 50px;
+    margin-top: 50px;
+
+    background-color: #eee;
+    border-radius: 50px;
+    transition: 0.2s;
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#submit_register:hover {
+    transition: 0.2s;
+    background-color: #4286f4;
+    color: #eee;
+}
+
+#register__title {
+    background-color: #fff;
+    padding: 40px;
+    top: 16%;
+    left: 38.1%;
+    border-radius: 15px;
+    position: absolute;
+    font-family: "Anton", sans-serif;
+    font-size: 3em;
+}

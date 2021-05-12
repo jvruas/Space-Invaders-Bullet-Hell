@@ -4,10 +4,50 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="default_reset.css" />
-        <link rel="stylesheet" href="default.css" />
-        <title>Home Page</title>
+        <link rel="stylesheet" href="../public/css/default_reset.css" />
+        <link rel="stylesheet" href="../public/css/default.css" />
+        <title>Home</title>
     </head>
-    <body></body>
+    <body>
+        <!-- Homepage -->
+        <div class="c-general">
+            <div class="c-general__align">
+                <!-- Video BackGround-->
+                <video
+                    id="space_invaders_history"
+                    class="home__video"
+                    autoplay
+                    muted
+                    loop
+                    src="../public/assets/video/History Invaders Games (1978-2021).mp4"
+                    type="video/mp4"
+                ></video>
+                <!-- Contents -->
+                <div class="home__content">
+                    <div class="content__box">
+                        <h1 class="box__title">Gostou? Jogue já!</h1>
+                    </div>
+                    <div class="content__box2">
+                        <!-- Form Login -->
+                        <form action="" class="box2__form">
+                            <h2>Email:</h2>
+                            <input type="email" id="email" />
+                            <h2>Senha:</h2>
+                            <input type="password" id="password" />
+                            <br />
+                            <input type="submit" value="Entrar" id="submit" />
+                            <span class="form__redirect-register">
+                                Não possui cadastro?
+                                <a href="../Views/register_page.html"
+                                    >Entre aqui.</a
+                                >
+                            </span>
+                        </form>
+                        <!-- End Login -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
 <script></script>
