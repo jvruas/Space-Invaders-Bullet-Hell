@@ -22,12 +22,12 @@ router.get("/", (req, res) => {
 });
 
 router.get("/Register", (req, res) => {
-    res.sendFile(path.join(__dirname + "/Views/login_page.html"));
+    res.sendFile(path.join(__dirname + "/Views/register_page.html"));
 });
 
-router.get("/Login", (req, res) => {
-    res.sendFile(path.join(__dirname + "/Views/login_page.html"));
-});
+// router.get("/Login", (req, res) => {
+//     res.sendFile(path.join(__dirname + "/Views/login_page.html"));
+// });
 
 router.get("/Space-Invaders", (req, res) => {
     res.sendFile(path.join(__dirname + "/Views/client_game.html"));
