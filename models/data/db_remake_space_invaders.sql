@@ -9,9 +9,12 @@ CREATE TABLE tb_user(
 );
 
 CREATE TABLE tb_game_score (
-	idScore INT PRIMARY KEY AUTO_INCREMENT,
+	idScore INT AUTO_INCREMENT,
     fkUser INT,
 	FOREIGN KEY (fkUser) REFERENCES tb_user(idUser),
 	PRIMARY KEY (idScore, fkUser),
     matchScore DECIMAL (8,2)
 );
+
+
+
