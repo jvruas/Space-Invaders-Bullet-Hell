@@ -17,4 +17,3 @@ CREATE TABLE tb_game_score (
 );
 
 
-

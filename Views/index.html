@@ -29,11 +29,16 @@
                     </div>
                     <div class="content__box2">
                         <!-- Form Login -->
-                        <form action="" class="box2__form">
+                        <form
+                            id="form_login"
+                            method="post"
+                            onsubmit="return entrar()"
+                            class="box2__form"
+                        >
                             <h2>Email:</h2>
-                            <input type="email" id="email" />
+                            <input type="email" name="email" />
                             <h2>Senha:</h2>
-                            <input type="password" id="password" />
+                            <input type="password" name="password" />
                             <br />
                             <input type="submit" value="Entrar" id="submit" />
                             <span class="form__redirect-register">
@@ -50,4 +55,39 @@
         </div>
     </body>
 </html>
-<script></script>
+<script>
+    function entrar() {
+        aguardar();
+        var formulario = new URLSearchParams(new FormData(form_login));
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            body: formulario,
+        }).then((resposta) => {
+            if (resposta.ok) {
+                resposta.json().then((json) => {
+                    sessionStorage.login_usuario_meuapp = json.login;
+                    sessionStorage.nome_usuario_meuapp = json.nome;
+
+                    window.location.href = "client_game.html";
+                });
+            } else {
+                console.log("Erro de login!");
+
+                resposta.text().then((texto) => {
+                    console.error(texto);
+                    finalizar_aguardar(texto);
+                });
+            }
+        });
+
+        return false;
+    }
+
+    function aguardar() {
+        submit.disabled = true;
+    }
+
+    function finalizar_aguardar(resposta) {
+        submit.disabled = false;
+    }
+</script>

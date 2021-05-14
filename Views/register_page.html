@@ -13,13 +13,39 @@
             <!-- Form Login -->
             <h1 id="register__title">Crie aqui sua Conta:</h1>
             <div class="box3__form-register">
-                <form action="" class="form-register">
+                <form
+                    id="form_user_register"
+                    method="post"
+                    onsubmit="return cadastrar()"
+                    class="form-register"
+                >
                     <h2>Email:</h2>
-                    <input type="email" />
+                    <input
+                        type="email"
+                        name="email"
+                        autofocus="autofocus"
+                        placeholder="Digite o seu email"
+                        required
+                        minlength="4"
+                    />
                     <h2>Usuário:</h2>
-                    <input type="text" />
+                    <input
+                        type="text"
+                        name="username"
+                        autofocus="autofocus"
+                        placeholder="Digite o seu nickname"
+                        required
+                        minlength="4"
+                    />
                     <h2>Senha:</h2>
-                    <input type="password" />
+                    <input
+                        type="password"
+                        name="password"
+                        autofocus="autofocus"
+                        placeholder="Digite a sua senha"
+                        required
+                        minlength="4"
+                    />
                     <input
                         type="submit"
                         value="Cadastrar"
@@ -31,4 +57,33 @@
         </div>
     </body>
 </html>
-<script></script>
+<script>
+    function cadastrar() {
+        aguardar();
+        var formulario = new URLSearchParams(new FormData(form_user_register));
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            body: formulario,
+        }).then(function (response) {
+            if (response.ok) {
+                window.location.href = "index.html";
+            } else {
+                console.log("Erro de cadastro!");
+                response.text().then(function (resposta) {
+                    // div_erro.innerHTML = resposta;
+                });
+                finalizar_aguardar();
+            }
+        });
+
+        return false;
+    }
+
+    function aguardar() {
+        submit_register.disabled = true;
+    }
+
+    function finalizar_aguardar() {
+        submit_register.disabled = false;
+    }
+</script>
