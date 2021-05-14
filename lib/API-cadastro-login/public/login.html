@@ -19,7 +19,7 @@
                     autoplay
                     muted
                     loop
-                    src="../public/assets/video/History Invaders Games (1978-2021).mp4"
+                    src="./History Invaders Games (1978-2021).mp4"
                     type="video/mp4"
                 ></video>
                 <!-- Contents -->
@@ -34,19 +34,22 @@
                             method="post"
                             onsubmit="return entrar()"
                         >
-                            Usuário:
                             <h2>Email:</h2>
                             <input type="email" name="email" />
 
                             <h2>Senha:</h2>
                             <input type="password" name="password" />
                             <br />
-                            <input type="submit" value="Entrar" id="submit__btn" />
                             <span class="form__redirect-register">
                                 Não possui cadastro?
-                                <a href="../Views/register_page.html"
-                                    >Entre aqui.</a
-                                >
+                                <a href="cadastro.html">Entre aqui.</a>
+                            </span>
+                            <br />
+                            <input
+                                type="submit"
+                                value="Entrar"
+                                id="submit__btn"
+                            />
                         </form>
                         <div id="div_erro" class="msg_erro"></div>
                     </div>
@@ -68,7 +71,7 @@
                     sessionStorage.email_usuario_meuapp = json.email;
                     sessionStorage.username_usuario_meuapp = json.username;
 
-                    window.location.href = "https://google.com";
+                    window.location.href = "https://www.google.com";
                 });
             } else {
                 console.log("Erro de email!");
