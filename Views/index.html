@@ -43,7 +43,7 @@
                             <input type="submit" value="Entrar" id="submit" />
                             <span class="form__redirect-register">
                                 Não possui cadastro?
-                                <a href="../Views/register_page.html"
+                                <a href="../Views/client_game.html"
                                     >Entre aqui.</a
                                 >
                             </span>
@@ -56,38 +56,38 @@
     </body>
 </html>
 <script>
-    function entrar() {
-        aguardar();
-        var formulario = new URLSearchParams(new FormData(form_login));
-        fetch("/usuarios/autenticar", {
-            method: "POST",
-            body: formulario,
-        }).then((resposta) => {
-            if (resposta.ok) {
-                resposta.json().then((json) => {
-                    sessionStorage.login_usuario_meuapp = json.login;
-                    sessionStorage.nome_usuario_meuapp = json.nome;
+    // function entrar() {
+    //     aguardar();
+    //     var formulario = new URLSearchParams(new FormData(form_login));
+    //     fetch("/usuarios/autenticar", {
+    //         method: "POST",
+    //         body: formulario,
+    //     }).then((resposta) => {
+    //         if (resposta.ok) {
+    //             resposta.json().then((json) => {
+    //                 sessionStorage.login_usuario_meuapp = json.login;
+    //                 sessionStorage.nome_usuario_meuapp = json.nome;
 
-                    window.location.href = "client_game.html";
-                });
-            } else {
-                console.log("Erro de login!");
+    //                 window.location.href = "client_game.html";
+    //             });
+    //         } else {
+    //             console.log("Erro de login!");
 
-                resposta.text().then((texto) => {
-                    console.error(texto);
-                    finalizar_aguardar(texto);
-                });
-            }
-        });
+    //             resposta.text().then((texto) => {
+    //                 console.error(texto);
+    //                 finalizar_aguardar(texto);
+    //             });
+    //         }
+    //     });
 
-        return false;
-    }
+    //     return false;
+    // }
 
-    function aguardar() {
-        submit.disabled = true;
-    }
+    // function aguardar() {
+    //     submit.disabled = true;
+    // }
 
-    function finalizar_aguardar(resposta) {
-        submit.disabled = false;
-    }
+    // function finalizar_aguardar(resposta) {
+    //     submit.disabled = false;
+    // }
 </script>
