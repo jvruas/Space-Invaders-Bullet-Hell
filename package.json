@@ -18,7 +18,6 @@
     },
     "homepage": "https://github.com/jvruas/Space-Invaders-Bullet-Hell#readme",
     "dependencies": {
-        "express": "^4.17.1",
-        "serialport": "^9.0.7"
+        "express": "^4.17.1"
     }
 }
