@@ -122,7 +122,7 @@
     height: 25px;
 }
 
-.box2__form #submit {
+.box2__form #submit__btn {
     position: relative;
     width: 50%;
     height: 50px;
@@ -138,7 +138,7 @@
     font-weight: bold;
 }
 
-#submit:hover {
+#submit__btn:hover {
     transition: 0.2s;
     background-color: #4286f4;
     color: #eee;

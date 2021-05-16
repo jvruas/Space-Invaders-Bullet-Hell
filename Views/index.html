@@ -31,23 +31,28 @@
                         <!-- Form Login -->
                         <form
                             id="form_login"
+                            class="box2__form"
                             method="post"
                             onsubmit="return entrar()"
-                            class="box2__form"
                         >
                             <h2>Email:</h2>
                             <input type="email" name="email" />
+
                             <h2>Senha:</h2>
                             <input type="password" name="password" />
                             <br />
-                            <input type="submit" value="Entrar" id="submit" />
+                            <input
+                                type="submit"
+                                value="Entrar"
+                                id="submit__btn"
+                            />
                             <span class="form__redirect-register">
                                 Não possui cadastro?
-                                <a href="../Views/client_game.html"
-                                    >Entre aqui.</a
-                                >
+                                <a href="register_page.html">Entre aqui.</a>
                             </span>
+                            <br />
                         </form>
+                        <div id="div_erro" class="msg_erro"></div>
                         <!-- End Login -->
                     </div>
                 </div>
@@ -56,38 +61,41 @@
     </body>
 </html>
 <script>
-    // function entrar() {
-    //     aguardar();
-    //     var formulario = new URLSearchParams(new FormData(form_login));
-    //     fetch("/usuarios/autenticar", {
-    //         method: "POST",
-    //         body: formulario,
-    //     }).then((resposta) => {
-    //         if (resposta.ok) {
-    //             resposta.json().then((json) => {
-    //                 sessionStorage.login_usuario_meuapp = json.login;
-    //                 sessionStorage.nome_usuario_meuapp = json.nome;
+    function entrar() {
+        aguardar();
+        var formulario = new URLSearchParams(new FormData(form_login));
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            body: formulario,
+        }).then((resposta) => {
+            if (resposta.ok) {
+                resposta.json().then((json) => {
+                    sessionStorage.login_usuario_meuapp = json.login;
+                    sessionStorage.nome_usuario_meuapp = json.nome;
 
-    //                 window.location.href = "client_game.html";
-    //             });
-    //         } else {
-    //             console.log("Erro de login!");
+                    window.location.href = "client_game.html";
+                });
+            } else {
+                console.log("Erro de login!");
 
-    //             resposta.text().then((texto) => {
-    //                 console.error(texto);
-    //                 finalizar_aguardar(texto);
-    //             });
-    //         }
-    //     });
+                resposta.text().then((texto) => {
+                    console.error(texto);
+                    finalizar_aguardar(texto);
+                });
+            }
+        });
 
-    //     return false;
-    // }
+        return false;
+    }
 
-    // function aguardar() {
-    //     submit.disabled = true;
-    // }
+    function aguardar() {
+        submit__btn.disabled = true;
+        div_erro.style.visibility = "hidden";
+    }
 
-    // function finalizar_aguardar(resposta) {
-    //     submit.disabled = false;
-    // }
+    function finalizar_aguardar(resposta) {
+        submit__btn.disabled = false;
+        div_erro.style.visibility = "visible";
+        div_erro.innerHTML = resposta;
+    }
 </script>
