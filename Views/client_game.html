@@ -28,85 +28,11 @@
     // Canvas Specs/Repaints
     const screen = document.getElementById("screen");
     render_screen(screen, game, requestAnimationFrame);
+    game.game_start();
 
     // const network = create_network();          --- Simulação de uma camada de servidor
-
-    // Integração da Camada Input com a Camada de Business Rules apenas no RUN-TIME do codigo
-
     // keyboard_listener.subscribe(network.update);   -- Simulação de uma camada de servidor
 
-    // FIXME:
+    // FIXME: Integrar isso com os usernames do Servidor MySQL
     game.add_player({ playerId: "player1", playerX: 8, playerY: 16 });
-
-    game.add_alien({ alienId: "alien1", alienX: 15, alienY: 6 });
-    game.add_alien({ alienId: "alien2", alienX: 15, alienY: 4 });
-    game.add_alien({ alienId: "alien3", alienX: 15, alienY: 2 });
-
-    game.add_alien({ alienId: "alien4", alienX: 17, alienY: 6 });
-    game.add_alien({ alienId: "alien5", alienX: 17, alienY: 4 });
-    game.add_alien({ alienId: "alien6", alienX: 17, alienY: 2 });
-
-    game.add_alien({ alienId: "alien7", alienX: 19, alienY: 6 });
-    game.add_alien({ alienId: "alien8", alienX: 19, alienY: 4 });
-    game.add_alien({ alienId: "alien9", alienX: 19, alienY: 2 });
-
-    game.add_alien({ alienId: "alien10", alienX: 21, alienY: 6 });
-    game.add_alien({ alienId: "alien11", alienX: 21, alienY: 4 });
-    game.add_alien({ alienId: "alien12", alienX: 21, alienY: 2 });
-
-    game.add_alien({ alienId: "alien13", alienX: 23, alienY: 6 });
-    game.add_alien({ alienId: "alien14", alienX: 23, alienY: 4 });
-    game.add_alien({ alienId: "alien15", alienX: 23, alienY: 2 });
-
-    game.add_alien({ alienId: "alien16", alienX: 25, alienY: 6 });
-    game.add_alien({ alienId: "alien17", alienX: 25, alienY: 4 });
-    game.add_alien({ alienId: "alien18", alienX: 25, alienY: 2 });
-
-    game.add_alien({ alienId: "alien19", alienX: 13, alienY: 6 });
-    game.add_alien({ alienId: "alien20", alienX: 13, alienY: 4 });
-    game.add_alien({ alienId: "alien21", alienX: 13, alienY: 2 });
-
-    game.add_alien({ alienId: "alien22", alienX: 11, alienY: 6 });
-    game.add_alien({ alienId: "alien23", alienX: 11, alienY: 4 });
-    game.add_alien({ alienId: "alien24", alienX: 11, alienY: 2 });
-
-    game.add_alien({ alienId: "alien25", alienX: 9, alienY: 6 });
-    game.add_alien({ alienId: "alien26", alienX: 9, alienY: 4 });
-    game.add_alien({ alienId: "alien27", alienX: 9, alienY: 2 });
-
-    game.add_alien({ alienId: "alien28", alienX: 7, alienY: 6 });
-    game.add_alien({ alienId: "alien29", alienX: 7, alienY: 4 });
-    game.add_alien({ alienId: "alien30", alienX: 7, alienY: 2 });
-
-    game.add_alien({ alienId: "alien31", alienX: 5, alienY: 6 });
-    game.add_alien({ alienId: "alien32", alienX: 5, alienY: 4 });
-    game.add_alien({ alienId: "alien33", alienX: 5, alienY: 2 });
-
-    game.add_alien({ alienId: "alien34", alienX: 27, alienY: 6 });
-    game.add_alien({ alienId: "alien35", alienX: 27, alienY: 4 });
-    game.add_alien({ alienId: "alien36", alienX: 27, alienY: 2 });
-
-    game.add_alien({ alienId: "alien37", alienX: 29, alienY: 6 });
-    game.add_alien({ alienId: "alien38", alienX: 29, alienY: 4 });
-    game.add_alien({ alienId: "alien39", alienX: 29, alienY: 2 });
-
-    game.add_alien({ alienId: "alien40", alienX: 3, alienY: 6 });
-    game.add_alien({ alienId: "alien41", alienX: 3, alienY: 4 });
-    game.add_alien({ alienId: "alien42", alienX: 3, alienY: 2 });
-
-    game.add_alien({ alienId: "alien53", alienX: 8, alienY: 0 });
-    game.add_alien({ alienId: "alien54", alienX: 4, alienY: 0 });
-
-    game.add_alien({ alienId: "alien55", alienX: 28, alienY: 0 });
-    game.add_alien({ alienId: "alien56", alienX: 26, alienY: 0 });
-    game.add_alien({ alienId: "alien57", alienX: 24, alienY: 0 });
-    game.add_alien({ alienId: "alien58", alienX: 22, alienY: 0 });
-    game.add_alien({ alienId: "alien59", alienX: 20, alienY: 0 });
-    game.add_alien({ alienId: "alien60", alienX: 18, alienY: 0 });
-    game.add_alien({ alienId: "alien61", alienX: 16, alienY: 0 });
-    game.add_alien({ alienId: "alien62", alienX: 14, alienY: 0 });
-    game.add_alien({ alienId: "alien63", alienX: 12, alienY: 0 });
-    game.add_alien({ alienId: "alien64", alienX: 10, alienY: 0 });
-
-    game.add_alien({ alienId: "alien65", alienX: 6, alienY: 0 });
 </script>

@@ -11,8 +11,6 @@ export default function create_game(command) {
         alienBullets: {},
     };
 
-    console.log(screen);
-
     function add_player(command) {
         const playerId = command.playerId;
         const playerX = command.playerX;
@@ -80,6 +78,33 @@ export default function create_game(command) {
         const alienBulletId = command.alienBulletId;
 
         delete state.alienBullets[alienBulletId];
+    }
+
+    function generate_aliens() {
+        let currentAlienY = -1;
+
+        function gen_aliens_row() {
+            currentAlienY += 2;
+            for (let i = 1; i < state.screen.width - 1; i++) {
+                const alienIdGenerator = (Math.random() * 2).toFixed(3);
+                if (i % 2 === 0) {
+                    // console.log("Gerando Alien");
+                    add_alien({
+                        alienId: `alien${alienIdGenerator}`,
+                        alienX: i,
+                        alienY: currentAlienY,
+                    });
+                }
+            }
+        }
+        gen_aliens_row();
+        gen_aliens_row();
+        gen_aliens_row();
+        gen_aliens_row();
+    }
+
+    function game_start() {
+        generate_aliens();
     }
 
     function player_bullet_state() {
@@ -185,10 +210,10 @@ export default function create_game(command) {
     function move_alien() {
         for (const alienId in state.aliens) {
             const alien = state.aliens[alienId];
-            if (++alien.x < state.screen.width) {
+            if (alien.x + 1 < state.screen.width) {
                 ++alien.x;
             } else {
-                alien.x = 1;
+                alien.x = 0;
                 ++alien.y;
             }
             if (alien.y === 14) {
@@ -255,13 +280,8 @@ export default function create_game(command) {
     return {
         state,
         add_player,
-        add_alien,
-        add_player_bullet,
-        add_alien_bullet,
         remove_player,
-        remove_alien,
-        remove_player_bullet,
-        remove_alien_bullet,
         player_accepted_moves,
+        game_start,
     };
 }
