@@ -16,8 +16,5 @@
     "bugs": {
         "url": "https://github.com/jvruas/Space-Invaders-Bullet-Hell/issues"
     },
-    "homepage": "https://github.com/jvruas/Space-Invaders-Bullet-Hell#readme",
-    "dependencies": {
-        "express": "^4.17.1"
-    }
+    "homepage": "https://github.com/jvruas/Space-Invaders-Bullet-Hell#readme"
 }

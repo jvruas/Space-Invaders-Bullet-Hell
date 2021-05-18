@@ -76,7 +76,7 @@
             body: formulario,
         }).then(function (response) {
             if (response.ok) {
-                window.location.href = "index.html";
+                window.location.href = "/Views/index.html";
             } else {
                 console.log("Erro de cadastro!");
                 response.text().then(function (resposta) {
