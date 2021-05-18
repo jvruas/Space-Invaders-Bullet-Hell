@@ -4,8 +4,8 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./css/default_reset.css" />
-        <link rel="stylesheet" href="./css/default.css" />
+        <link rel="stylesheet" href="../css/default_reset.css" />
+        <link rel="stylesheet" href="../css/default.css" />
         <title>Cadastro</title>
     </head>
     <body>
@@ -14,9 +14,10 @@
             <h1 id="register__title">Crie aqui sua Conta:</h1>
             <div class="box3__form-register">
                 <form
-                    id="form_cadastro"
+                    id="form_user_register"
                     method="post"
                     onsubmit="return cadastrar()"
+                    class="form-register"
                 >
                     <h2>Email:</h2>
                     <input
@@ -51,37 +52,31 @@
                         id="submit_register"
                     />
                 </form>
-
-                <img
-                    src="aguarde-orange.gif"
-                    id="img_aguarde"
-                    style="display: none; width: 100px"
-                />
+                <div
+                    id="div_erro"
+                    style="
+                        background-color: sandybrown;
+                        color: maroon;
+                        display: none;
+                    "
+                >
+                    Erro no cadastro
+                </div>
             </div>
-            <div
-                id="div_erro"
-                style="
-                    background-color: sandybrown;
-                    color: maroon;
-                    display: none;
-                "
-            >
-                Erro no cadastro
-            </div>
+            <!-- End Login -->
         </div>
     </body>
 </html>
-
 <script>
     function cadastrar() {
         aguardar();
-        var formulario = new URLSearchParams(new FormData(form_cadastro));
+        var formulario = new URLSearchParams(new FormData(form_user_register));
         fetch("/usuarios/cadastrar", {
             method: "POST",
             body: formulario,
         }).then(function (response) {
             if (response.ok) {
-                window.location.href = "login.html";
+                window.location.href = "index.html";
             } else {
                 console.log("Erro de cadastro!");
                 response.text().then(function (resposta) {

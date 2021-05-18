@@ -4,8 +4,8 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./css/default_reset.css" />
-        <link rel="stylesheet" href="./css/default.css" />
+        <link rel="stylesheet" href="../css/default_reset.css" />
+        <link rel="stylesheet" href="../css/default.css" />
         <title>Home</title>
     </head>
     <body>
@@ -19,7 +19,7 @@
                     autoplay
                     muted
                     loop
-                    src="./History Invaders Games (1978-2021).mp4"
+                    src="../assets/video/History Invaders Games (1978-2021).mp4"
                     type="video/mp4"
                 ></video>
                 <!-- Contents -->
@@ -30,7 +30,8 @@
                     <div class="content__box2">
                         <!-- Form Login -->
                         <form
-                            id="form_email"
+                            id="form_login"
+                            class="box2__form"
                             method="post"
                             onsubmit="return entrar()"
                         >
@@ -40,18 +41,19 @@
                             <h2>Senha:</h2>
                             <input type="password" name="password" />
                             <br />
-                            <span class="form__redirect-register">
-                                Não possui cadastro?
-                                <a href="cadastro.html">Entre aqui.</a>
-                            </span>
-                            <br />
                             <input
                                 type="submit"
                                 value="Entrar"
                                 id="submit__btn"
                             />
+                            <span class="form__redirect-register">
+                                Não possui cadastro?
+                                <a href="register_page.html">Entre aqui.</a>
+                            </span>
+                            <br />
                         </form>
                         <div id="div_erro" class="msg_erro"></div>
+                        <!-- End Login -->
                     </div>
                 </div>
             </div>
@@ -61,20 +63,20 @@
 <script>
     function entrar() {
         aguardar();
-        var formulario = new URLSearchParams(new FormData(form_email));
+        var formulario = new URLSearchParams(new FormData(form_login));
         fetch("/usuarios/autenticar", {
             method: "POST",
             body: formulario,
         }).then((resposta) => {
             if (resposta.ok) {
                 resposta.json().then((json) => {
-                    sessionStorage.email_usuario_meuapp = json.email;
-                    sessionStorage.username_usuario_meuapp = json.username;
+                    sessionStorage.login_usuario_meuapp = json.login;
+                    sessionStorage.nome_usuario_meuapp = json.nome;
 
-                    window.location.href = "https://www.google.com";
+                    window.location.href = "client_game.html";
                 });
             } else {
-                console.log("Erro de email!");
+                console.log("Erro de login!");
 
                 resposta.text().then((texto) => {
                     console.error(texto);
