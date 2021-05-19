@@ -8,12 +8,19 @@ CREATE TABLE tb_user(
     email VARCHAR(80) NOT NULL
 );
 
-CREATE TABLE tb_game_score (
-	idScore INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE tb_player_score (
     fkUser INT,
 	FOREIGN KEY (fkUser) REFERENCES tb_user(idUser),
-    matchScore DECIMAL (9,2)
+	idScore INT AUTO_INCREMENT,
+	PRIMARY KEY (idScore, fkUser),
+    matchScore DECIMAL (10,3),
+    lastMatchScore DATETIME
 );
+
+    
+-- SELECT * from tb_game_score JOIN tb_user ON fkUser = idUser;
+
+
 
 
 
