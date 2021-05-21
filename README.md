@@ -25,6 +25,7 @@
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center; flex-direction:column;">
   <img alt="first_print" title="#print_game1" src="./lib/API-cadastro-login/public/assets/images/prints/cover_image.png" width="300px">
   <img alt="second_print" title="#print_game2" src="./lib/API-cadastro-login/public/assets/images/prints/cover_image2.png" width="300px">
+    <img alt="sixth_print" title="#print_game3" src="./lib/API-cadastro-login/public/assets/images/prints/cover_image3.png" width="300px">
   <img alt="third_print" title="#print_register_page" src="./lib/API-cadastro-login/public/assets/images/prints/cover_cadastro.png" width="300px">
   <img alt="fourth_print" title="#print_login_page1" src="./lib/API-cadastro-login/public/assets/images/prints/cover_login1.png" width="300px">
   <img alt="fifth_print" title="#print_login_page2" src="./lib/API-cadastro-login/public/assets/images/prints/cover_login2.png" width="300px">
