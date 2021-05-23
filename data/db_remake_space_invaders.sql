@@ -8,6 +8,7 @@ CREATE TABLE tb_user(
     email VARCHAR(80) NOT NULL
 );
 
+-- Futura Implementação
 CREATE TABLE tb_player_score (
     fkUser INT,
 	FOREIGN KEY (fkUser) REFERENCES tb_user(idUser),
@@ -17,8 +18,6 @@ CREATE TABLE tb_player_score (
     lastMatchScore DATETIME
 );
 
-    
--- SELECT * from tb_game_score JOIN tb_user ON fkUser = idUser;
 
 
 
