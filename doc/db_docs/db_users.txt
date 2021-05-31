@@ -1,0 +1,11 @@
+Space Invaders Bullet Hell - Users:
+______________________________________________________
+Database - "db_remake_space_invaders".
+Hostname - "localhost".
+
+Username - "user-spaceinvaders".
+Password - "spaceinvaders-password".
+
+Privileges - Insert and Select.
+Tables - ALL.
+______________________________________________________
