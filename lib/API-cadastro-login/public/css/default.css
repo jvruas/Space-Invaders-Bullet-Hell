@@ -156,6 +156,30 @@
     text-decoration: none;
 }
 
+/* *Home Support */
+
+.home__suport {
+    margin-top: 30px;
+    margin-left: 30px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1em;
+    color: #000;
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 5px;
+}
+
+.home__suport h1 {
+    margin-bottom: 10px;
+    font-family: "Anton", sans-serif;
+    font-size: 2em;
+}
+
+.home__suport b {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 /* *Register Contents */
 
 .c-general__align .register__content {
